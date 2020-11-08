@@ -18,9 +18,11 @@ class Home extends React.Component{
 
     handleClick = (e) => {
         e.preventDefault();
-        console.log('handleClick, printing props');
         console.log(this.props.temperatures);
+        console.log('handleClick, printing props');
         console.log('printed props');
+        console.log('printed props');
+        
         //this.props.addTemp(this.props.temperatures[0].cityName);
         // this.props.addTemp(this.props.payload);
 
