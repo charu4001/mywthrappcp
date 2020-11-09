@@ -1,7 +1,7 @@
 const initState = {
     temperatures: [
-        { cityName: 'Calgary', temp: '10' },
-        { cityName: 'Jaipur', temp: '20' }
+        { cityName: 'Calgary', temp: 10 },
+        { cityName: 'Jaipur', temp: 20 }
     ]
 }
 
