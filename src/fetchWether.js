@@ -16,17 +16,9 @@ async function fetchWether(cityName) {
         responseType: 'stream'
     })
     .then(function (result){
-         console.log('temp result:',result);
         temp = result.data.main.temp
     });
 
-    console.log('after axios call', temp);
-
-        // axios.get(completeURL)
-        //     .then(result => {
-        //         console.log('result:',result);
-        //         temp = result.data.main.temp;
-        //     });
     return temp;
     
 } 

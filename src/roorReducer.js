@@ -6,7 +6,6 @@ const initState = {
 }
 
 const roorReducer = (state = initState, action) => {
-    console.log(action);
     if(action.type == 'ADD_TEMP')
     {
         state.temperatures.push(action.payload)
