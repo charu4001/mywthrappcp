@@ -1,12 +1,13 @@
 const initState = {
     temperatures: [
-        { cityName: 'Calgary', temp: 10 },
-        { cityName: 'Jaipur', temp: 20 }
+        //{ cityName: null , temp: null }
+        // { cityName: 'Calgary', temp: 10 },
+        // { cityName: 'Jaipur', temp: 20 }
     ]
 }
 
 const roorReducer = (state = initState, action) => {
-    if(action.type == 'ADD_TEMP')
+    if(action.type === 'ADD_TEMP')
     {
         state.temperatures.push(action.payload)
     }

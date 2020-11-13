@@ -22,7 +22,6 @@ class Home extends React.Component{
             store.dispatch({ type: 'ADD_TEMP', payload: that.state});
 
         })
-
     }
 
     handleChange = (e) => {
@@ -33,7 +32,7 @@ class Home extends React.Component{
 
     render(){
         return(
-            <div>                
+            <div>              
                     <label htmlFor="cityName">City Name</label>
                     <input type="text" id="cityName" onChange={this.handleChange}/>
                     <button onClick={this.handleClick}>FetchWeather</button>
