@@ -22,6 +22,8 @@ class Home extends React.Component{
             store.dispatch({ type: 'ADD_TEMP', payload: that.state});
 
         })
+
+        document.getElementById('cityName').value = '';
     }
 
     handleChange = (e) => {
