@@ -21,9 +21,17 @@ class Home extends React.Component{
             that.setState({temp: val})
             store.dispatch({ type: 'ADD_TEMP', payload: that.state});
 
+            document.getElementById('cityName').value = '';
+
+            //window.location.href="/Info";
+            that.props.history.push('/Info');
+
         })
 
-        document.getElementById('cityName').value = '';
+        // document.getElementById('cityName').value = '';
+
+        // //window.location.href="/Info";
+        // that.props.history.push('/Info');
     }
 
     handleChange = (e) => {
