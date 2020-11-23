@@ -9,6 +9,7 @@ const Navbar = () => {
                 <ul className="left hide-on-med-and-down">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/Info">Info</Link></li>
+                    <li><Link to="/Tictactoe">Tictactoe</Link></li>
                 </ul>
             </div>
         </nav>
