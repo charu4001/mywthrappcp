@@ -12,33 +12,57 @@ code {
     monospace;
 }
 
-.center{
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  flex:1;
-  align-self: stretch
+.button1{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
 }
-
-.row1{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  flex: 1;
-  margin: 10px;
+.button2{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
 }
-.row2{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  flex: 1;
-  margin: 10px;
+.button3{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
 }
-.row3{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  flex: 1;
-  margin: 10px;
-  align-self: stretch
+.button4{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
+}
+.button5{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
+}
+.button6{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
+}
+.button7{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
+}
+.button8{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
+}
+.button9{
+  margin:5px;
+  background-color: whitesmoke;
+  width: 40px;
+  height: 40px;
 }
