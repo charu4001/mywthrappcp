@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { store } from './index.js';
 import fetchWether from './fetchWether';
+import { trackPromise } from 'react-promise-tracker';
 
 class Home extends React.Component{
     
@@ -15,16 +16,35 @@ class Home extends React.Component{
 
         var that = this;
 
+        console.log('return:',fetchWether(this.state.cityName));
+                
         var tempPromise = Promise.resolve(fetchWether(this.state.cityName));
+        
+        trackPromise(
+            Promise.resolve(fetchWether(this.state.cityName))
+        );
+
+        console.log('tempPromise:',tempPromise);
 
         tempPromise.then(function(val){
-            that.setState({temp: val})
-            store.dispatch({ type: 'ADD_TEMP', payload: that.state});
 
-            document.getElementById('cityName').value = '';
+            console.log('val:',val);
 
-            //window.location.href="/Info";
-            that.props.history.push('/Info');
+            if (val != null)
+            {
+
+                that.setState({temp: val})
+                store.dispatch({ type: 'ADD_TEMP', payload: that.state});
+
+                document.getElementById('cityName').value = '';
+
+                //window.location.href="/Info";
+                that.props.history.push('/Info');
+            }
+            else if (val == null)
+            {
+                that.props.history.push('/ErrorPage');
+            }
 
         })
 
@@ -42,7 +62,7 @@ class Home extends React.Component{
 
     render(){
         return(
-            <div>              
+            <div>  
                     <label htmlFor="cityName">City Name</label>
                     <input type="text" id="cityName" onChange={this.handleChange}/>
                     <button onClick={this.handleClick}>FetchWeather</button>

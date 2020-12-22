@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+//import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
+
 async function fetchWether(cityName) {
 
     //Axios to get data from Open weather API 
@@ -9,15 +12,32 @@ async function fetchWether(cityName) {
     console.log('completeURL: ',completeURL);
 
     var temp = null;
-    
+
     await axios({
         method:'get',
         url:completeURL,
         responseType: 'stream'
     })
     .then(function (result){
-        temp = result.data.main.temp
+
+        if(result.status = '200')
+        {
+            console.log('success:', result);
+            temp = result.data.main.temp;
+        }
+        if(result.status = '404')
+        {
+            console.log('Failure:', result);
+        }
+
+    })
+    .catch((message) => { 
+        console.log('Error to make API call:', message);
+        //window.location.href="/ErrorPage";// state was getting lost 
+        //this.props.history.push('/ErrorPage');
     });
+
+    
 
     return temp;
     

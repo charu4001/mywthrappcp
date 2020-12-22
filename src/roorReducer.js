@@ -1,3 +1,4 @@
+
 const initState = {
     temperatures: [
         //{ cityName: null , temp: null }
@@ -9,7 +10,7 @@ const initState = {
 }
 
 const roorReducer = (state = initState, action) => {
-    
+
     if(action.type === 'ADD_TEMP')
     {
         state.temperatures.push(action.payload)
