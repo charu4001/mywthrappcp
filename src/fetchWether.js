@@ -9,38 +9,25 @@ async function fetchWether(cityName) {
     //Axios to get data from Open weather API 
     const completeURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric&appid=e1a93138d9f69da2b14fec4cd4b09e13';
 
-    console.log('completeURL: ',completeURL);
+    console.log('completeURL: ', completeURL);
 
     var temp = null;
+    try {
+        let response = await axios({
+            method: 'get',
+            url: completeURL,
+            responseType: 'stream'
+        });
 
-    await axios({
-        method:'get',
-        url:completeURL,
-        responseType: 'stream'
-    })
-    .then(function (result){
-
-        if(result.status = '200')
-        {
-            //console.log('success:', result);
-            temp = result.data.main.temp;
+        if (response.status == 200) {
+            temp = response.data.main.temp;
         }
-        // if(result.status = '404')
-        // {
-        //     console.log('Failure:', result);
-        // }
-
-    })
-    .catch((message) => { 
-        console.log('Error to make API call:', message);
-        //window.location.href="/ErrorPage";// state was getting lost 
-        //this.props.history.push('/ErrorPage');
-    });
-
-    
+    } catch (error) {
+        console.log('Error to make API call:', error);
+    }
 
     return temp;
-    
-} 
+
+}
 
 export default fetchWether;
