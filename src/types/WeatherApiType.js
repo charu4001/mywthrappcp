@@ -3,5 +3,6 @@
 
 
 export type WeatherResponse = {
-  data: any
+  temperature: number,
+  cityName: string
 };

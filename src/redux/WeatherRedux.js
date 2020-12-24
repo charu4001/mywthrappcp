@@ -1,13 +1,17 @@
 // @flow
 'use strict';
 
-import { NetworkReducer } from './NetworkReducer';
-import type { WeatherResponse } from '../types/WeatherApiType';
-import type { ReduxState } from './reduxState';
 import axios from 'axios';
+import type { WeatherResponse } from '../types/WeatherApiType';
+import { NetworkReducer } from './NetworkReducer';
+import type { ReduxState } from './reduxState';
+
+const requestPrefix = 'http://api.openweathermap.org/data/2.5/weather?q=';
+const requestSuffix = '&units=metric&appid=e1a93138d9f69da2b14fec4cd4b09e13'
 
 export const initialWeatherState = {
-  data: -273
+  temperature: -273,
+  cityName: 'noWhere'
 };
 
 export const weatherReducer: NetworkReducer<WeatherResponse> = new NetworkReducer('GET_WEATHER');
@@ -19,7 +23,7 @@ export function getWeather(cityName: string) {
     dispatch(weatherReducer.resetAction());
   
     dispatch(weatherReducer.requestAction());
-    const completeURL = 'http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&units=metric&appid=e1a93138d9f69da2b14fec4cd4b09e13';
+    const completeURL = `${requestPrefix}${cityName}${requestSuffix}`;
   
     try {
       const response = await axios({
@@ -27,14 +31,14 @@ export function getWeather(cityName: string) {
           url: completeURL,
           responseType: 'stream'
       });
-      debugger;
       if (response.status == 200) {
-          let temp = response.data.main.temp;
-          debugger;
-          dispatch(weatherReducer.responseAction(temp));
+          const weatherInfo = {
+            temperature:  response.data.main.temp,
+            cityName: response.data.name
+          };
+          dispatch(weatherReducer.responseAction(weatherInfo));
       }
     } catch (error) {
-      console.log('Error to make API call:', error);
       dispatch(weatherReducer.errorAction());
     }
   };
