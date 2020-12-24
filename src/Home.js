@@ -16,37 +16,47 @@ class Home extends React.Component{
 
         var that = this;
 
-        console.log('return:',fetchWether(this.state.cityName));
-                
-        var tempPromise = Promise.resolve(fetchWether(this.state.cityName));
-        
-        trackPromise(
-            Promise.resolve(fetchWether(this.state.cityName))
-        );
+        if (this.state.cityName == null )
+        {
+            store.dispatch({type: 'NO_REQUEST_SENT', payload: null});
+        }
+        else
+        {
+            console.log('return:',fetchWether(this.state.cityName));
+                    
+            var tempPromise = Promise.resolve(fetchWether(this.state.cityName));
+            
+            trackPromise(
+                Promise.resolve(fetchWether(this.state.cityName))
+            );
 
-        console.log('tempPromise:',tempPromise);
+            console.log('tempPromise:',tempPromise);
 
-        tempPromise.then(function(val){
+            tempPromise.then(function(val){
 
-            console.log('val:',val);
+                console.log('val:',val);
 
-            if (val != null)
-            {
+                if (val != null)
+                {
+                    store.dispatch({type: 'REQUEST_SENT_RESPONSE_RECEIVED', payload: val});
 
-                that.setState({temp: val})
-                store.dispatch({ type: 'ADD_TEMP', payload: that.state});
+                    that.setState({temp: val})
+                    store.dispatch({ type: 'ADD_TEMP', payload: that.state});
 
-                document.getElementById('cityName').value = '';
+                    document.getElementById('cityName').value = '';
 
-                //window.location.href="/Info";
-                that.props.history.push('/Info');
-            }
-            else if (val == null)
-            {
-                that.props.history.push('/ErrorPage');
-            }
+                    //window.location.href="/Info";
+                    that.props.history.push('/Info');
+                }
+                else if (val == null)
+                {
+                    store.dispatch({type: 'BAD_REQUEST_SENT_ERROR_RESPONSE_RECEIVED', payload: val});
 
-        })
+                    that.props.history.push('/ErrorPage');
+                }
+
+            })
+        }
 
         // document.getElementById('cityName').value = '';
 

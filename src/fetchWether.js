@@ -22,13 +22,13 @@ async function fetchWether(cityName) {
 
         if(result.status = '200')
         {
-            console.log('success:', result);
+            //console.log('success:', result);
             temp = result.data.main.temp;
         }
-        if(result.status = '404')
-        {
-            console.log('Failure:', result);
-        }
+        // if(result.status = '404')
+        // {
+        //     console.log('Failure:', result);
+        // }
 
     })
     .catch((message) => { 
