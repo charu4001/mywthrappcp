@@ -1,21 +1,19 @@
+import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'materialize-css/dist/css/materialize.min.css'
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import rootReducer from './roorReducer';
-import logger from 'redux-logger';
-//import { loadingBarMiddleware } from 'react-redux-loading-bar';
-import { usePromiseTracker } from "react-promise-tracker";
 import Loader from 'react-loader-spinner';
+import { usePromiseTracker } from "react-promise-tracker";
+import { Provider } from 'react-redux';
+import App from './App';
+import './index.css';
+import { createReduxStore } from './redux/reduxStore';
+import reportWebVitals from './reportWebVitals';
 
-export const store = createStore(rootReducer, applyMiddleware(logger));//, applyMiddleware(loadingBarMiddleware()) );
+// export const store = createStore(rootReducer, applyMiddleware(logger));
+export const store = createReduxStore();
 
 const LoadingIndicator = props => {
-  
+
   const { promiseInProgress } = usePromiseTracker();
 
   return (
@@ -31,15 +29,15 @@ const LoadingIndicator = props => {
     >
       <Loader type="ThreeDots" color="pink" height="100" width="100" />
     </div>
-  );  
- }
+  );
+}
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App />
-    <LoadingIndicator/>
+      <App />
+      <LoadingIndicator />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

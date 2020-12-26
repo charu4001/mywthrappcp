@@ -1,11 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { store } from './index.js';
-import fetchWether from './fetchWether';
-import { trackPromise } from 'react-promise-tracker';
+// @flow
+'use strict';
 
-class Home extends React.Component{
-    
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { store } from './index.js';
+import { getWeather } from './redux/WeatherRedux';
+
+type PropsType = {
+  getWeather: () => void
+};
+
+class Home extends Component<PropsType> {
     state={
         cityName: null,
         temp: null
@@ -18,50 +24,12 @@ class Home extends React.Component{
 
         if (this.state.cityName == null )
         {
-            store.dispatch({type: 'NO_REQUEST_SENT', payload: null});
+             store.dispatch({type: 'NO_REQUEST_SENT', payload: null});
         }
         else
         {
-            console.log('return:',fetchWether(this.state.cityName));
-                    
-            var tempPromise = Promise.resolve(fetchWether(this.state.cityName));
-            
-            trackPromise(
-                Promise.resolve(fetchWether(this.state.cityName))
-            );
-
-            console.log('tempPromise:',tempPromise);
-
-            tempPromise.then(function(val){
-
-                console.log('val:',val);
-
-                if (val != null)
-                {
-                    store.dispatch({type: 'REQUEST_SENT_RESPONSE_RECEIVED', payload: val});
-
-                    that.setState({temp: val})
-                    store.dispatch({ type: 'ADD_TEMP', payload: that.state});
-
-                    document.getElementById('cityName').value = '';
-
-                    //window.location.href="/Info";
-                    that.props.history.push('/Info');
-                }
-                else if (val == null)
-                {
-                    store.dispatch({type: 'BAD_REQUEST_SENT_ERROR_RESPONSE_RECEIVED', payload: val});
-
-                    that.props.history.push('/ErrorPage');
-                }
-
-            })
+            this.props.getWeather(this.state.cityName);
         }
-
-        // document.getElementById('cityName').value = '';
-
-        // //window.location.href="/Info";
-        // that.props.history.push('/Info');
     }
 
     handleChange = (e) => {
@@ -87,4 +55,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getWeather
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
