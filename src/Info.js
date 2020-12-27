@@ -84,6 +84,6 @@ class Info extends React.Component<Props> {
 
 export default connect(
   (state: ReduxState) => ({
-    weather: state
+    weather: state.weather
   })
 )(Info);

@@ -1,6 +1,6 @@
 // @flow
 'use strict';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import type { ReduxState } from './reduxState';
@@ -12,7 +12,9 @@ const middlewaresToApply =  [ thunk, logger ] ;
 const middleware = applyMiddleware(...middlewaresToApply);
 
 export function createReduxStore(data: ReduxState = initialState){
-  const appReducer = weatherReducer.getReducer();
+  const appReducer = combineReducers({
+    weather: weatherReducer.getReducer()
+  });
 
   const rootReducer = (state, action) => {
     return appReducer(state, action);
