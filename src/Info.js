@@ -15,27 +15,46 @@ type Props = {
 
 class Info extends React.Component<Props> {
     render(){
-        debugger;
-      if(this.props.weather.isRefreshing){
+      
+      if(this.props.weather.isRefreshing)
+      {
         return (
           <div>
           {'Refreshing at the moment'}       
           </div>
-      )
+        )
       }
-      const weatherData = this.props.weather.data;
-      
-      return this.getResultScreen(weatherData);  
+
+      if(this.props.weather.error)
+      {
+        //redirect to error page
+        this.props.history.push('/ErrorPage')
+      }
+       debugger;
+      //const weatherData = this.props.weather.data;
+
+      //dataList
+       const weatherData = this.props.weather.dataList;
+       debugger;
+       const res =[];
+       weatherData.forEach(element => {
+           res.push( this.getResultScreen(element)  );
+       });
+
+      // return this.getResultScreen(weatherData);  
+      return res;
     }
-    
+
     getResultScreen(weatherData: WeatherResponse){
-      if(this.isObjectEmpty(weatherData)){
+      if(this.isObjectEmpty(weatherData))
+      {  
         return (
           <div>
           {'No data at the moment. Go request some first'}
           </div>
         )
       }
+      
       const { temperature, cityName } = weatherData;  
       if(temperature < 0 ){
           return (

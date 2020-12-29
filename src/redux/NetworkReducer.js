@@ -1,11 +1,14 @@
 // @flow
 'use strict';
 
+import type { ReduxState } from './reduxState';
+
 export type RequestReducerState<T> = {
   data: ?T,
   isRefreshing: boolean,
   error: boolean,
-  errorMessage: string
+  errorMessage: string,
+  dataList:[]
 };
 
 export type RequestReducerAction = {
@@ -26,11 +29,13 @@ export class NetworkReducer<DataType>{
       data: undefined,
       isRefreshing: false,
       error: false,
-      errorMessage:''
+      errorMessage:'',
+      dataList:[]
     };
   }
 
   getInitialState(): RequestReducerState<DataType> {
+    //as of from the constructor
     return this.initialState;
   }
 
@@ -68,6 +73,7 @@ export class NetworkReducer<DataType>{
   }
 
   errorAction(message: string): RequestReducerAction {
+    
     return {
       type: this._errorType(this.actionName),
       payload: message
@@ -96,13 +102,14 @@ export class NetworkReducer<DataType>{
           errorMessage:''
         };
         case this._responseType(this.actionName):
+        { state.dataList.push(action.payload);
         return {
           ...state,
           data: action.payload,
           isRefreshing: false,
           error: false,
           errorMessage:''
-        };
+        };}
         case this._errorType(this.actionName):
         return {
           ...state,
@@ -112,6 +119,7 @@ export class NetworkReducer<DataType>{
         };
         case this._resetType(this.actionName):
         return this.getInitialState();
+
       default:
         return state;
     }

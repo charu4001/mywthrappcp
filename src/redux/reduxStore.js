@@ -12,8 +12,12 @@ const middlewaresToApply =  [ thunk, logger ] ;
 const middleware = applyMiddleware(...middlewaresToApply);
 
 export function createReduxStore(data: ReduxState = initialState){
+  console.log('InitialState',initialState);
   const appReducer = combineReducers({
-    weather: weatherReducer.getReducer()
+    weather: weatherReducer.getReducer(),
+//    temperatures: (state = {}) => state,
+    chancesA: (state = {}) => state,
+    chancesB: (state = {}) => state
   });
 
   const rootReducer = (state, action) => {
