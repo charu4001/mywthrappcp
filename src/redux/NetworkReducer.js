@@ -7,8 +7,8 @@ export type RequestReducerState<T> = {
   data: ?T,
   isRefreshing: boolean,
   error: boolean,
-  errorMessage: string,
-  dataList:[]
+  errorMessage: string
+  //dataList:[]
 };
 
 export type RequestReducerAction = {
@@ -102,7 +102,7 @@ export class NetworkReducer<DataType>{
           errorMessage:''
         };
         case this._responseType(this.actionName):
-        { state.dataList.push(action.payload);
+        { //state.dataList.push(action.payload);
         return {
           ...state,
           data: action.payload,

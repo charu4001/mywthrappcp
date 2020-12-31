@@ -6,6 +6,8 @@ import thunk from 'redux-thunk';
 import type { ReduxState } from './reduxState';
 import { initialState } from './reduxState';
 import { weatherReducer } from './WeatherRedux';
+import { weatherListReducer } from './WeatherRedux';
+import { ticTacToeReducer } from './WeatherRedux';
 
 const middlewaresToApply =  [ thunk, logger ] ;
 
@@ -15,9 +17,9 @@ export function createReduxStore(data: ReduxState = initialState){
   console.log('InitialState',initialState);
   const appReducer = combineReducers({
     weather: weatherReducer.getReducer(),
-//    temperatures: (state = {}) => state,
-    chancesA: (state = {}) => state,
-    chancesB: (state = {}) => state
+    temperatures: weatherListReducer,//weatherListReducer([], {type: 'RESET'}),//(state = {}) => state,
+    ticTacToe: ticTacToeReducer,//(state = {}) => state,
+    
   });
 
   const rootReducer = (state, action) => {

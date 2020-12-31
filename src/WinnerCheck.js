@@ -1,51 +1,54 @@
 
 import { store } from './index.js';
 
-
-function WinnerCheck() {
+export function didPlayerBWin(){    
+    let wc = getWinningConditions();
+    console.log(typeof wc);
+    console.log(wc);
+    let ar = store.getState().ticTacToe.chancesB;
+    let out = false;
     
-    console.log('check store:',  store.getState());
-
-    var result = null;
-
-    if ( (store.getState().chancesA.includes('B1')) && (store.getState().chancesA.includes('B2')) && (store.getState().chancesA.includes('B3')) )
-        result = 'Player A, Row 1 Wins';
-    else if ( (store.getState().chancesA.includes('B4')) && (store.getState().chancesA.includes('B5')) && (store.getState().chancesA.includes('B6')) )
-        result = 'Player A, Row 2 Wins';
-    else if ( (store.getState().chancesA.includes('B7')) && (store.getState().chancesA.includes('B8')) && (store.getState().chancesA.includes('B9')) )
-        result = 'Player A, Row 3 Wins';
-    else if ( (store.getState().chancesA.includes('B1')) && (store.getState().chancesA.includes('B4')) && (store.getState().chancesA.includes('B7')) )
-        result = 'Player A, Column 1 Wins';
-    else if ( (store.getState().chancesA.includes('B2')) && (store.getState().chancesA.includes('B5')) && (store.getState().chancesA.includes('B8')) )
-        result = 'Player A, Column 2 Wins';
-    else if ( (store.getState().chancesA.includes('B3')) && (store.getState().chancesA.includes('B6')) && (store.getState().chancesA.includes('B9')) )
-        result = 'Player A, Column 3 Wins';
-    else if ( (store.getState().chancesA.includes('B1')) && (store.getState().chancesA.includes('B5')) && (store.getState().chancesA.includes('B9')) )
-        result = 'Player A, Major Diagonal Wins';
-    else if ( (store.getState().chancesA.includes('B3')) && (store.getState().chancesA.includes('B5')) && (store.getState().chancesA.includes('B7')) )
-        result = 'Player A, Minor Diagonal Wins';
+    var res = 'DRAW';
+    getWinningConditions().forEach(element => {
+        debugger;
+        if(!out && element.every(v => ar.includes(v))){
+            res = 'Player B Wins'
+        }
+    });
     
-    else if ( (store.getState().chancesB.includes('B1')) && (store.getState().chancesB.includes('B2')) && (store.getState().chancesB.includes('B3')) )
-        result = 'Player B, Row 1 Wins';
-    else if ( (store.getState().chancesB.includes('B4')) && (store.getState().chancesB.includes('B5')) && (store.getState().chancesB.includes('B6')) )
-        result = 'Player B, Row 2 Wins';
-    else if ( (store.getState().chancesB.includes('B7')) && (store.getState().chancesB.includes('B8')) && (store.getState().chancesB.includes('B9')) )
-        result = 'Player B, Row 3 Wins';
-    else if ( (store.getState().chancesB.includes('B1')) && (store.getState().chancesB.includes('B4')) && (store.getState().chancesB.includes('B7')) )
-        result = 'Player B, Column 1 Wins';
-    else if ( (store.getState().chancesB.includes('B2')) && (store.getState().chancesB.includes('B5')) && (store.getState().chancesB.includes('B8')) )
-        result = 'Player B, Column 2 Wins';
-    else if ( (store.getState().chancesB.includes('B3')) && (store.getState().chancesB.includes('B6')) && (store.getState().chancesB.includes('B9')) )
-        result = 'Player B, Column 3 Wins';
-    else if ( (store.getState().chancesB.includes('B1')) && (store.getState().chancesB.includes('B5')) && (store.getState().chancesB.includes('B9')) )
-        result = 'Player B, Major Diagonal Wins';
-    else if ( (store.getState().chancesB.includes('B3')) && (store.getState().chancesB.includes('B5')) && (store.getState().chancesB.includes('B7')) )
-        result = 'Player B, Minor Diagonal Wins';
-
-    else
-        result = 'DRAW';
-    
-    return result;
+    return res;
 }
 
-export default WinnerCheck;
+export function didPlayerAWin(){    
+    let wc = getWinningConditions();
+    console.log(typeof wc);
+    console.log(wc);
+    let ar = store.getState().ticTacToe.chancesA;
+    let out = false;
+    var res = 'DRAW';
+    getWinningConditions().forEach(element => {
+        debugger;
+        if(!out && element.every(v => ar.includes(v))){
+            res = 'Player A Wins'
+        }
+    });
+    return res;
+}
+
+export function getWinningConditions(): Array<Array<string>>{
+
+    const winningConditions = [];
+
+    winningConditions.push(['B1','B2','B3']);
+    winningConditions.push(['B4','B5','B6']);
+    winningConditions.push(['B7','B8','B9']);
+    
+    winningConditions.push(['B1','B4','B7']);
+    winningConditions.push(['B2','B5','B8']);
+    winningConditions.push(['B3','B6','B9']);
+  
+    winningConditions.push(['B1','B5','B9']);
+    winningConditions.push(['B3','B5','B7']);
+
+    return winningConditions;
+}

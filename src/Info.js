@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import type { RequestReducerState } from './redux/NetworkReducer.js';
 import type { ReduxState } from './redux/reduxState.js';
-import { initialWeatherState, weatherReducer } from './redux/WeatherRedux.js';
 import type { WeatherResponse } from './types/WeatherApiType.js';
 import spring from './undraw_blooming_jtv6.png';
 import fall from './undraw_Fall_is_coming_yl0x.png';
@@ -10,12 +9,13 @@ import summer from './undraw_sunlight_tn7t.png';
 import winter from './undraw_winter_road_mcqj.png';
 
 type Props = {
-  weather: RequestReducerState<WeatherResponse>
+  weather: RequestReducerState<WeatherResponse>,
+  temperatures: WeatherList
 }
 
 class Info extends React.Component<Props> {
     render(){
-      
+
       if(this.props.weather.isRefreshing)
       {
         return (
@@ -34,8 +34,8 @@ class Info extends React.Component<Props> {
       //const weatherData = this.props.weather.data;
 
       //dataList
-       const weatherData = this.props.weather.dataList;
-       debugger;
+       //const weatherData = this.props.weather.dataList;
+       const weatherData = this.props.temperatures.dataList;
        const res =[];
        weatherData.forEach(element => {
            res.push( this.getResultScreen(element)  );
@@ -103,6 +103,7 @@ class Info extends React.Component<Props> {
 
 export default connect(
   (state: ReduxState) => ({
-    weather: state.weather
+    weather: state.weather,
+    temperatures: state.temperatures
   })
 )(Info);

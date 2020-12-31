@@ -29,20 +29,7 @@ class Home extends Component<PropsType> {
         else
         {
             this.props.getWeather(this.state.cityName);
-            // var tempPromise = Promise.resolve(this.props.getWeather(this.state.cityName));
-            // console.log('this.props.getWeather(this.state.cityName);',this.props.getWeather(this.state.cityName));
-
-            // tempPromise.then(function(val){
-            //     console.log('val:',val);
-
-            //     if (val != null)
-            //     {
-            //         that.setState({temp: val})
-            //         store.dispatch({ type: 'ADD_TEMP', payload: that.state});
-            //     }
-            //})
-
-            //goto info page
+         
             this.props.history.push('/Info');
         }
     }
