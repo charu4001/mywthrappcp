@@ -8,6 +8,7 @@ import App from './App';
 import './index.css';
 import { createReduxStore } from './redux/reduxStore';
 import reportWebVitals from './reportWebVitals';
+import {App as MultiPlatformApp } from 'RnWebAwesome/dist/App'
 
 // export const store = createStore(rootReducer, applyMiddleware(logger));
 export const store = createReduxStore();
