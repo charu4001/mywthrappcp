@@ -6,6 +6,7 @@ import Info from './Info';
 import Home from './Home';
 import Tictactoe from './Tictactoe'
 import ErrorPage from './ErrorPage'
+import TestComp from '../node_modules/RnWebAwesome/dist/App.js'
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             <Route exact path="/" component={Home}/>
             <Route path ="/Info" component={Info}/>
             <Route path ="/Tictactoe" component={Tictactoe}/>
-            <Route path ="/ErrorPage" component={ErrorPage}/>
+            <Route path ="/User" component={TestComp}/>
           </Switch>
       </div>
     </BrowserRouter>
