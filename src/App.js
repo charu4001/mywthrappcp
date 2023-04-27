@@ -16,8 +16,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route path ="/Info" component={Info}/>
-            <Route path ="/Tictactoe" component={Tictactoe}/>
-            <Route path ="/User" component={TestComp}/>
+            <Route path ="/Tictactoe" component={TestComp}/>
+            <Route path ="/home" component={TestComp}/>
           </Switch>
       </div>
     </BrowserRouter>
